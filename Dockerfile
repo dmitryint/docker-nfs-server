@@ -1,7 +1,8 @@
 FROM ubuntu
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update -qq && apt-get install -y nfs-kernel-server runit inotify-tools -qq
-RUN sed -i 's/^STATDOPTS=/STATDOPTS="--port 4000"/' /etc/default/nfs-common
+RUN sed -i 's/^STATDOPTS=.*/STATDOPTS="--port 4000"/' /etc/default/nfs-common
+RUN sed -i 's/^NEED_STATD=.*/NEED_STATD=yes/' /etc/default/nfs-common
 RUN sed -i 's/^RPCMOUNTDOPTS="\(.*\)"/RPCMOUNTDOPTS="\1 --port 5000"/' /etc/default/nfs-kernel-server
 RUN mkdir -p /exports
 
